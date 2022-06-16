@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.laioffer.tinnews.model.Article;
 import com.laioffer.tinnews.model.NewsResponse;
 import com.laioffer.tinnews.repository.NewsRepository;
 
@@ -23,6 +24,13 @@ public class HomeViewModel extends ViewModel {
         //data change logic
         countryInput.setValue(country);
     }
+
+    //event
+    public void setFavoriteArticleInput(Article article) {
+
+        repository.favoriteArticle(article);
+    }
+
 
     public LiveData<NewsResponse> getTopHeadlines() {
         //country input livedata -> switch/translate -> top headline livedata

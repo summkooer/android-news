@@ -35,8 +35,6 @@ public class HomeFragment extends Fragment implements CardStackListener {
     private List<Article> articles;
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,6 +95,9 @@ public class HomeFragment extends Fragment implements CardStackListener {
             Log.d("CardStackView", "Unliked " + layoutManager.getTopPosition());
         } else if (direction == Direction.Right) {
             Log.d("CardStackView", "Liked "  + layoutManager.getTopPosition());
+            Article article = articles.get(layoutManager.getTopPosition() -1); //-1 index
+               viewModel.setFavoriteArticleInput(article);
+
         }
     }
 
