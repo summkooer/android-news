@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.laioffer.tinnews.R;
 
-public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder> {
+public class SavedNewsAdapter extends
+        RecyclerView.Adapter<SavedNewsAdapter.SavedNewsViewHolder> {
 
 
     // 1. Supporting data:
@@ -26,6 +27,18 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         articles.clear();
         articles.addAll(newsList);
         notifyDataSetChanged();
+    }
+
+    interface ItemCallback {
+
+        void onOpenDetails(Article article);
+        void onRemoveFavorite(Article article);
+    }
+
+    private ItemCallback itemCallback;
+
+    public void setItemCallback(ItemCallback itemCallback) {
+        this.itemCallback = itemCallback;
     }
 
     // 2. Adapter overrides:
@@ -41,7 +54,13 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.Save
         Article article = articles.get(position);
         holder.authorTextView.setText(article.author);
         holder.descriptionTextView.setText(article.description);
+        holder.favoriteIcon.setOnClickListener(v -> itemCallback.onRemoveFavorite(article));
+         holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetails(article));
+        holder.itemView.setOnClickListener(v -> itemCallback.onOpenDetails(article));
+
     }
+
+
 
     @Override
     public int getItemCount() {
